@@ -23,7 +23,7 @@ def main(data, context):
         # Only select the Google Doc links from FinalDocLinks
         if doc_link.startswith('https://docs.google.com/document/d/'):
             doc_files.append(value[4])
-        sheets.append(value[9])
+        sheets.append(value[10])
 
     give_edit_access(doc_files)
 
@@ -52,7 +52,7 @@ def main(data, context):
     sent_values = []
 
     for sheet in client_sheets:
-        rn = content_flow.get_values(f'{sheet[0]}!J1')[0][0]
+        rn = content_flow.get_values(f'{sheet[0]}!K1')[0][0]
         vals = content_flow.get_values(f'{sheet[0]}!{rn}')
 
         for val in vals:

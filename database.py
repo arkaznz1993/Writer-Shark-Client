@@ -17,13 +17,13 @@ config = {
 }
 
 GET_SPREADSHEET_CARDS = 'SELECT CardDetails.CardId, CardDetails.CardTitle, CardDetails.CardUrl, ' \
-                        'CardDetails.SurferSEOLink, CardDetails.FinalDocLink,' \
+                        'CardDetails.SurferSEOLink, CardDetails.FinalDocLink, ' \
                         'CardDetails.WordCount, Writers.Name, CardDetails.SubmittedDate, ' \
-                        'Clients.Name AS Client, Clients.Sheet ' \
+                        'CardDetails.CompletedDate, Clients.Name AS Client, Clients.Sheet ' \
                         'FROM CardDetails JOIN Writers ON CardDetails.Writer = Writers.TrelloId ' \
                         'JOIN Clients ON CardDetails.Client = Clients.Id ' \
                         'WHERE CardDetails.Status = 2 ' \
-                        'ORDER BY CardDetails.SubmittedDate ASC;'
+                        'ORDER BY CardDetails.CompletedDate ASC;'
 
 GET_SHEETS = "SELECT DISTINCT Sheet FROM Clients WHERE Sheet != '';"
 

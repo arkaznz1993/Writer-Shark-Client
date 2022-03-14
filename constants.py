@@ -1,10 +1,8 @@
-import os
-
 GOOGLE_DOC_LINK = 'https://docs.google.com/document/d/[DOC_ID]/edit'
 USER_EMAIL = 'editor@writershark.com'
 
 CLIENT_SPREADSHEET = '1JWpQxJfUsxafHRVacoz5dAPa7fQHcjuwThQYNifjb0c'
-SHEET_DEFAULT_RANGE = '!A2:I'
+SHEET_DEFAULT_RANGE = '!A2:J'
 
 # Service type constants for Google Services
 SHEETS = 1
