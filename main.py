@@ -59,7 +59,7 @@ def main(data, context):
             if val[-1] == 'Submitted':
                 sent_values.append([constants.STATUS_SUBMITTED, val[0]])
             elif val[-1] == 'Uploaded':
-                sent_values.append([constants.STATUS_SUBMITTED, val[0]])
+                sent_values.append([constants.STATUS_UPLOADED, val[0]])
 
     database_connection.update_status(sent_values)
 
