@@ -27,7 +27,10 @@ GET_SPREADSHEET_CARDS = 'SELECT CardDetails.CardId, CardDetails.CardTitle, CardD
 
 GET_SHEETS = "SELECT DISTINCT Sheet FROM Clients WHERE Sheet != '';"
 
-UPDATE_STATUS_SPREADSHEET = 'UPDATE CardDetails SET Status = %s WHERE CardId = %s'
+UPDATE_STATUS_SENT_SPREADSHEET = 'UPDATE CardDetails SET Status = %s, SentDate = %s ' \
+                                 'WHERE CardId = %s AND SentDate IS NULL;'
+UPDATE_STATUS_UPLOADED_SPREADSHEET = 'UPDATE CardDetails SET Status = %s, UploadedDate = %s ' \
+                                     'WHERE CardId = %s AND UploadedDate IS NULL;'
 
 
 class DatabaseConnector:
@@ -43,8 +46,12 @@ class DatabaseConnector:
         self.cursor.execute(GET_SHEETS)
         return self.cursor.fetchall()
 
-    def update_status(self, values):
-        self.cursor.executemany(UPDATE_STATUS_SPREADSHEET, values)
+    def update_status_sent(self, values):
+        self.cursor.executemany(UPDATE_STATUS_SENT_SPREADSHEET, values)
+        self.connection.commit()
+
+    def update_status_uploaded(self, values):
+        self.cursor.executemany(UPDATE_STATUS_UPLOADED_SPREADSHEET, values)
         self.connection.commit()
 
 

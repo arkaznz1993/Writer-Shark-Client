@@ -1,4 +1,6 @@
 import time
+from datetime import datetime
+from pytz import timezone
 import constants
 from google_service import google_service
 from spreadsheets import Sheet
@@ -46,22 +48,29 @@ def main(data, context):
     james_articles = ClientArticle.return_james_articles()
     move_files_for_james(james_articles)
 
-    database_connection.update_status(ClientArticle.update_article_status())
+    database_connection.update_status_sent(ClientArticle.update_article_status())
 
     client_sheets = database_connection.get_client_sheets()
     sent_values = []
+    uploaded_values = []
 
     for sheet in client_sheets:
         rn = content_flow.get_values(f'{sheet[0]}!K1')[0][0]
         vals = content_flow.get_values(f'{sheet[0]}!{rn}')
 
+        now = datetime.now(timezone('Asia/Kolkata'))
+        now = now.strftime('%Y-%m-%d %H:%M:%S')
+
         for val in vals:
             if val[-1] == 'Submitted':
-                sent_values.append([constants.STATUS_SUBMITTED, val[0]])
+                sent_values.append([constants.STATUS_SUBMITTED, now, val[0]])
             elif val[-1] == 'Uploaded':
-                sent_values.append([constants.STATUS_UPLOADED, val[0]])
+                uploaded_values.append([constants.STATUS_UPLOADED, now, val[0]])
 
-    database_connection.update_status(sent_values)
+    database_connection.update_status_sent(sent_values)
+    database_connection.update_status_uploaded(uploaded_values)
+
+    database_connection.connection.close()
 
     time2 = time.time()
 
