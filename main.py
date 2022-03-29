@@ -48,7 +48,7 @@ def main(data, context):
     james_articles = ClientArticle.return_james_articles()
     move_files_for_james(james_articles)
 
-    database_connection.update_status_sent(ClientArticle.update_article_status())
+    database_connection.update_status_ready(ClientArticle.update_article_status())
 
     client_sheets = database_connection.get_client_sheets()
     sent_values = []
