@@ -19,7 +19,7 @@ class ClientArticle:
         self.client = client
         self.sheet = sheet
 
-        if self.surfer_seo is not None:
+        if len(self.surfer_seo) > 0:
             self.article_link = self.surfer_seo
         else:
             self.article_link = self.final_link
